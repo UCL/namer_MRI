@@ -13,9 +13,9 @@
 
 %% Initialize script, set filenames
 
-NAMER_path = [pwd,'/'];
-addpath(genpath('./funcs_namer'))
-addpath('./namer_data')
+NAMER_path = pwd;
+addpath(genpath(fullfile(NAMER_path,'funcs_namer')))
+addpath(fullfile(NAMER_path,'namer_data'))
 
 exp_name = '_namer_example';
 niters = 20;
@@ -29,7 +29,7 @@ cnn_tmp_path = NAMER_path;
 patch_params.patch_sz = 51;
 patch_params.patch_stsz = 8;
 create_patches = true;
-patches_full_fn = [NAMER_path, datestr(now,'yy-mm-dd'),'_namer_patches_tmp'];
+patches_full_fn = fullfile(NAMER_path, [datestr(now,'yy-mm-dd'),'_namer_patches_tmp']);
 
 %% Load channel data, find relevant parameters
 
@@ -71,7 +71,7 @@ while exist(exp_path,'dir')
     exp_str = strcat(exp_str(1:end-1),'i_');
 end
 mkdir(exp_path);
-full_path_exp_str = strcat(NAMER_path,'/',exp_path,exp_str);
+full_path_exp_str = strcat(fullfile(NAMER_path,exp_path,exp_str));
 
 
 %% Find no motion image and motion corrupted image
@@ -209,7 +209,7 @@ title('data consistency convergence')
 
 
 %% save final workspace
-save(strcat(full_path_exp_str,'end_wrksp.mat'))
+save(fullfile(full_path_exp_str,'end_wrksp.mat'))
 
 
 

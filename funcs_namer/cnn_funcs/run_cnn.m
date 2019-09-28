@@ -17,19 +17,20 @@ end
 output_filename = 'tmp_output_patches.mat';
 
 % initialize python script paths
+py_cmd = 'export PATH="/usr/local/sbin:/usr/local/bin:$PATH" ; python3 ' ;
 py_script_path = cnn_tmp_path;
 py_input_filename = patches_full_fn;
 py_input_var = 'x_test';
-py_output_filename = [cnn_tmp_path, output_filename];
+py_output_filename = fullfile(cnn_tmp_path, output_filename);
 py_out_var = 'x_test_output';
-py_sc_name = 'run_namer_cnn.py ';
-model_filename = [cnn_tmp_path, cnn_model_name];
+py_sc_name = 'run_namer_cnn.py';
+model_filename = fullfile(cnn_tmp_path, cnn_model_name);
 
 % boolean to decided if you want to see python output
 print_output = true;
 
 % create string to call python script with input and output variable names
-system_command_str = ['python ', py_script_path, py_sc_name, ...
+system_command_str = [py_cmd, fullfile(py_script_path, py_sc_name), ' ', ...
     py_input_filename, ' ', py_input_var, ' ', ...
     py_output_filename, ' ', py_out_var, ' ', ...
     model_filename, ' ', gpu_str];
